@@ -1,0 +1,4 @@
+# PNG images and plain text files are allowed here
+!*.txt
+!*.md
+!*.png
