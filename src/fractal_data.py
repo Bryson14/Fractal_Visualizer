@@ -2,17 +2,20 @@ import os
 
 
 class FractalData:
-	def __init__(self):
+	def __init__(self, data_dir='data'):
+		self.data_dir = data_dir
 		self.mandelbrot_types = {}
 		self.julia_types = {}
 		self.index_data()
 
 	def index_data(self):
 		# gives os.walk the right dir based on if run from cmd line or IDE
+		print(os.getcwd())
 		if 'src' in os.getcwd():
-			data_directory = r'..\data'
+			data_directory = f'..\{self.data_dir}'
 		else:
-			data_directory = r'data'
+			data_directory = f'{self.data_dir}'
+
 		for root, dirs, files in os.walk(data_directory):
 			for fil in files:
 				fil = os.path.join(root, fil)
