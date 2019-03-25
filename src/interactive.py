@@ -39,6 +39,8 @@ class Interactive:
 		self.miny = self.images[image]['centerY'] - (self.images[image]['axisLen'] / 2.0)
 		self.maxy = self.images[image]['centerY'] + (self.images[image]['axisLen'] / 2.0)
 		self.pixelsize = abs(self.maxx - self.minx) / self.len_x_axis
+		self.window = Tk()
+		self.canvas = Canvas(self.window, width=self.len_x_axis, height=self.len_y_axis, bg=self.gradients[-1])
 
 	def colorOfThePixel(self, c , verbose=False):
 		"""Return the color of the current pixel within the Mandelbrot set"""
@@ -78,11 +80,6 @@ class Interactive:
 				self.canvas.create_rectangle(col, self.len_x_axis-row, col+self.CELL_SIZE, self.len_y_axis-row+self.CELL_SIZE, fill=color)
 
 	def draw(self):
-
-		# Set up the GUI so that we can paint the fractal image on the screen
-		self.window = Tk()
-
-		self.canvas = Canvas(self.window, width=self.len_x_axis, height=self.len_y_axis, bg=self.gradients[-1])
 		self.canvas.pack()
 
 		# Paint the cell under the mouse cursor upon ordinary left click
@@ -98,11 +95,10 @@ class Interactive:
 		mainloop()
 
 
-mandels = FractalData()
-images = mandels.get_mandelbrot_dic()
-
-
 def main():
+	mandels = FractalData()
+	images = mandels.get_mandelbrot_dic()
+
 	if len(sys.argv) < 2:
 		print("Usage: mandelbrot.py FRACTALNAME")
 		print("Where FRACTALNAME is one of:")
