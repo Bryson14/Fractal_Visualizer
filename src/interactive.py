@@ -4,9 +4,9 @@
 #
 # This program does not need to be refactored for the assignment.
 # It is provided to help you better understand the Mandelbrot fractal.
-
 import sys
 from tkinter import Tk, Canvas, PhotoImage, mainloop
+from fractal_data import FractalData
 
 
 class Interactive:
@@ -98,43 +98,8 @@ class Interactive:
 		mainloop()
 
 
-images = {
-		'fullmandelbrot': {
-			'centerX': -0.6,
-			'centerY': 0.0,
-			'axisLen': 2.5,
-			},
-
-		'spiral0': {
-			'centerX': -0.761335372924805,
-			'centerY': 0.0835704803466797,
-			'axisLen': 0.00497817993164062,
-			},
-
-		'spiral1': {
-			'centerX': -0.747,
-			'centerY': 0.1075,
-			'axisLen': 0.002,
-			},
-
-		'seahorse': {
-			'centerX': -0.745,
-			'centerY': 0.105,
-			'axisLen': 0.01,
-			},
-
-		'elephants': {
-			'centerX':  0.30820836067024604,
-			'centerY':  0.030620936230004017,
-			'axisLen':  0.03,
-			},
-
-		'leaf': {
-			'centerX': -1.543577002,
-			'centerY': -0.000058690069,
-			'axisLen':  0.000051248888,
-			},
-		}
+mandels = FractalData()
+images = mandels.get_mandelbrot_dic()
 
 
 def main():
