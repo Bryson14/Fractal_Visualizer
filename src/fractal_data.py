@@ -8,7 +8,12 @@ class FractalData:
 		self.index_data()
 
 	def index_data(self):
-		for root, dirs, files in os.walk(r'..\data'):
+		# gives os.walk the right dir based on if run from cmd line or IDE
+		if 'src' in os.getcwd():
+			data_directory = r'..\data'
+		else:
+			data_directory = r'data'
+		for root, dirs, files in os.walk(data_directory):
 			for fil in files:
 				fil = os.path.join(root, fil)
 				for line in open(fil):
