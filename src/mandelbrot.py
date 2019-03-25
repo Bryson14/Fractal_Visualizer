@@ -4,6 +4,7 @@
 
 import sys
 from tkinter import Tk, Canvas, PhotoImage, mainloop
+from fractal_data import FractalData
 
 class Mandelbrot:
 	def __init__(self, images, image):

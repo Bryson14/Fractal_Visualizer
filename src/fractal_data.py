@@ -106,7 +106,3 @@ class Julia:
 			'iterations': self.iterations
 		}
 		return dic
-
-
-fractal_data = FractalData()
-print(fractal_data.get_julia_dic())
