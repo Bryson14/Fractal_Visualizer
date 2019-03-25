@@ -1,56 +1,100 @@
 import os
 
+
 class FractalData:
 	def __init__(self):
 		self.mandelbrot_types = {}
 		self.julia_types = {}
+		self.index_data()
 
 	def index_data(self):
-		for fil in os.walk(r'..\data'):
-			for line in open(fil):
-				if line.startswith('#'):
-					pass
-				elif line.startswith('type') and 'julia' in line:
-					self.index_julia(fil)
-				elif line.startswith('type') and 'mandelbrot' in line:
-					self.index_mandelbrot(fil)
+		for root, dirs, files in os.walk(r'..\data'):
+			for fil in files:
+				fil = os.path.join(root, fil)
+				for line in open(fil):
+					if line.startswith('#'):
+						pass
+					elif line.startswith('type') and 'julia' in line:
+						self.index_julia(fil)
+					elif line.startswith('type') and 'mandelbrot' in line:
+						self.index_mandelbrot(fil)
 
 	def index_mandelbrot(self, fil):
-		pass
+		name = fil.split('\\')[-1][:-5]  # strips just name from full file name
+		pixels = centerX = centerY = axislength = iterations = 0
+		for line in open(fil):
+			if line.startswith('pixel'):
+				pixels = int(line.split(" ")[-1].strip())
+			elif line.startswith('centerx'):
+				centerX = float(line.split(" ")[-1].strip())
+			elif line.startswith('centery'):
+				centerY = float(line.split(" ")[-1].strip())
+			elif line.startswith('axislength'):
+				axislength = float(line.split(" ")[-1].strip())
+			elif line.startswith('iterations'):
+				iterations = int(line.split(" ")[-1].strip())
+
+		mandel = Mandelbrot(pixels, centerX, centerY, axislength, iterations)
+		self.mandelbrot_types[name] = mandel.__dict__()
+
 
 	def index_julia(self, fil):
-		pass
+		name = fil.split('\\')[-1][:-5]  # strips just name from full file name
+		creal = cimag = pixels = centerX = centerY = axislength = iterations = 0
+		for line in open(fil):
+			if line.startswith('creal'):
+				creal = float(line.split(" ")[-1].strip())
+			elif line.startswith('cimag'):
+				cimag = float(line.split(" ")[-1].strip())
+			elif line.startswith('pixel'):
+				pixels = int(line.split(" ")[-1].strip())
+			elif line.startswith('centerx'):
+				centerX = float(line.split(" ")[-1].strip())
+			elif line.startswith('centery'):
+				centerY = float(line.split(" ")[-1].strip())
+			elif line.startswith('axislength'):
+				axislength = float(line.split(" ")[-1].strip())
+			elif line.startswith('iterations'):
+				iterations = int(line.split(" ")[-1].strip())
+
+		julia = Julia(creal, cimag, pixels, centerX, centerY, axislength, iterations)
+		self.julia_types[name] = julia.__dict__()
+
+	def get_mandelbrot_dic(self):
+		return self.mandelbrot_types
+
+	def get_julia_dic(self):
+		return self.julia_types
+
 
 class Mandelbrot:
-	def __init__(self, name, pixels, centerX, centerY, axislength, interations):
-		self.name = name
+	def __init__(self, pixels, centerX, centerY, axislength, iterations):
 		self.pixels = pixels
 		self.centerX = centerX
 		self.centerY = centerY
 		self.axislength = axislength
-		self.interations = interations
+		self.iterations = iterations
 
 	def __dict__(self):
-		print("runnning")
 		dic = {
+			'pixels': self.pixels,
 			'centerX': self.centerX,
 			'centerY': self.centerY,
 			'axisLen': self.axislength,
-			'iterations': self.interations
+			'iterations': self.iterations
 		}
-		return {self.name: dic}
+		return dic
 
 
 class Julia:
-	def __init__(self, name, creal, cimag, pixels, centerX, centerY, axislength, interations):
-		self.name = name
+	def __init__(self, creal, cimag, pixels, centerX, centerY, axislength, iterations):
 		self.creal = creal
 		self.cimag = cimag
 		self.pixels = pixels
 		self.centerX = centerX
 		self.centerY = centerY
 		self.axislength = axislength
-		self.interations = interations
+		self.iterations = iterations
 
 	def __dict__(self):
 		dic = {
@@ -58,12 +102,11 @@ class Julia:
 			'cimag': self.cimag,
 			'centerX': self.centerX,
 			'centerY': self.centerY,
-			'axisLen': self.axislength,
-			'iterations': self.interations
+			'axisLength': self.axislength,
+			'iterations': self.iterations
 		}
-		return {self.name: dic}
+		return dic
 
 
-
-
-
+fractal_data = FractalData()
+print(fractal_data.get_julia_dic())
