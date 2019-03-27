@@ -1,10 +1,8 @@
 #!/bin/env python3
 
 # Mandelbrot Set Visualizer
-
-import sys
-from tkinter import Tk, Canvas, PhotoImage, mainloop
-from fractal_data import FractalData
+from tkinter import mainloop
+from ImagePainter import ImagePainter
 
 
 class Mandelbrot:
@@ -37,11 +35,7 @@ class Mandelbrot:
 		self.miny = self.images[image]['centerY'] - (self.images[image]['axisLen'] / 2.0)
 		self.maxy = self.images[image]['centerY'] + (self.images[image]['axisLen'] / 2.0)
 		self.pixelsize = abs(self.maxx - self.minx) / self.len_x_axis
-		self.window = Tk()
-		self.img = PhotoImage(width=self.len_x_axis, height=self.len_y_axis)
-		self.canvas = Canvas(self.window, width=self.len_x_axis, height=self.len_y_axis, bg=self.gradients[0])
-		self.canvas.pack()
-		self.canvas.create_image((self.len_x_axis//2, self.len_y_axis//2), image=self.img, state="normal")
+		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradients[0])
 
 
 	def colorOfThePixel(self, c):
@@ -61,8 +55,8 @@ class Mandelbrot:
 				x = self.minx + col * self.pixelsize
 				y = self.miny + row * self.pixelsize
 				color = self.colorOfThePixel(complex(x, y))
-				self.img.put(color, (col, self.len_x_axis - row))
-			self. window.update()  # display a row of pixels
+				self.image_painter.img.put(color, (col, self.len_x_axis - row))
+			self.image_painter.window.update()
 
 	def pixelsWrittenSoFar(self, rows, cols):
 		pixels = rows * cols
@@ -70,37 +64,6 @@ class Mandelbrot:
 
 	def draw_mandelbrot(self):
 		self.paint()
-		self.img.write(f"drawn_fractals\{self.image}.png")
+		self.image_painter.img.write(f"drawn_fractals\{self.image}.png")
 		print(f"Wrote image drawn fractals\{self.image}.png")
-		self.window.bind("<Escape>", sys.exit)
-
 		mainloop()
-
-
-def main():
-	mandels = FractalData()
-	images = mandels.get_mandelbrot_dic()
-
-	if len(sys.argv) < 2:
-		print("Usage: mandelbrot.py FRACTALNAME")
-		print("Where FRACTALNAME is one of:")
-		for i in images:
-			print(f"\t{i}")
-		sys.exit(1)
-
-	elif str(sys.argv[1]).lower() not in images:
-		print(f"ERROR: {sys.argv[1]} is not a valid fractal")
-		print("Please choose one of the following:")
-		for i in images:
-			print(f"\t{i}")
-		sys.exit(1)
-
-	else:
-		image = str(sys.argv[1]).lower()
-
-	mandelbrot = Mandelbrot(images, image)
-	mandelbrot.draw_mandelbrot()
-
-
-if __name__ == '__main__':
-	main()
