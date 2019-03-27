@@ -55,10 +55,6 @@ class Mandelbrot:
 				self.image_painter.img.put(color, (col, self.len_x_axis - row))
 			self.image_painter.window.update()
 
-	def pixelsWrittenSoFar(self, rows, cols):
-		pixels = rows * cols
-		print(f"{pixels} pixels have been output so far")
-
 	def draw_mandelbrot(self):
 		self.paint()
 		self.image_painter.img.write(f"drawn_fractals\{self.image}.png")
