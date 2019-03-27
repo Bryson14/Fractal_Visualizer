@@ -4,7 +4,7 @@
 
 import sys
 from tkinter import Tk, Canvas, PhotoImage, mainloop
-from fractal_data import FractalData
+from Config import FractalData
 
 def getColorFromGradient(z):
 	"""Return the index of the color of the current pixel within the Julia set
