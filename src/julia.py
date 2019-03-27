@@ -2,9 +2,7 @@
 
 # Julia Set Visualizer
 
-import sys
 from tkinter import mainloop
-from Config import FractalData
 from ImagePainter import ImagePainter
 from Gradient import Gradients
 
@@ -25,7 +23,7 @@ class Julia:
 		self.maxy = images[image]["centerY"] + images[image]["axisLength"] / 2.0
 		self.pixel_size = abs(self.maxx - self.minx) / self.len_x_axis
 
-	def get_color_from_gradient(self, z):
+	def iteration_count_exit(self, z):
 		c = complex(self.creal, self.cimag)
 		for i in range(self.iterations):
 			z = z * z + c  # Iteratively compute z1, z2, z3 ...
@@ -33,18 +31,18 @@ class Julia:
 				return i  # The sequence unbinds itself
 		return self.iterations  # the sequence never unbinds itself
 
-	def make_picture(self):
+	def paint(self):
 		for row in range(self.len_y_axis, 0, -1):
 			for column in range(self.len_x_axis):
 				x = self.minx + column * self.pixel_size
 				y = self.miny + row * self.pixel_size
-				iteration_exit_count = self.get_color_from_gradient(complex(x, y))
+				iteration_exit_count = self.iteration_count_exit(complex(x, y))
 				color = self.gradients[iteration_exit_count]
 				self.image_painter.img.put(color, (column, self.len_y_axis - row))
 			self.image_painter.window.update()
 
 	def draw_julia(self):
-		self.make_picture()
+		self.paint()
 		self.image_painter.img.write(f"drawn_fractals\{self.image}.png")
 		print(f"Wrote image drawn fractals\{self.image}.png")
 

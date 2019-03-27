@@ -19,24 +19,25 @@ class Mandelbrot:
 		self.miny = images[image]['centerY'] - (images[image]['axisLen'] / 2.0)
 		self.maxy = images[image]['centerY'] + (images[image]['axisLen'] / 2.0)
 		self.pixelsize = abs(self.maxx - self.minx) / self.len_x_axis
-		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradients[0])
+		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis+, self.gradients[0])
 
-	def colorOfThePixel(self, c):
+	def iteration_exit_count(self, c):
 		"""Return the color of the current pixel within the Mandelbrot set"""
 		z = complex(0, 0)  #z0
 		for i in range(len(self.gradients)):
 			z = z * z + c  # Get z1, z2, ...
 			if abs(z) > 2:
-				return self.gradients[i]  # The sequence is unbounded
+				return i  # The sequence is unbounded
 
-		return self.gradients[len(self.gradients) - 1]   # Indicate a bounded sequence
+		return (self.gradients) - 1   # Indicate a bounded sequence
 
 	def paint(self):
 		for row in range(self.len_x_axis, 0, -1):
 			for col in range(self.len_y_axis):
 				x = self.minx + col * self.pixelsize
 				y = self.miny + row * self.pixelsize
-				color = self.colorOfThePixel(complex(x, y))
+				exit_count = self.iteration_exit_count(complex(x, y))
+				color = self.gradients[exit_count]
 				self.image_painter.img.put(color, (col, self.len_x_axis - row))
 			self.image_painter.window.update()
 

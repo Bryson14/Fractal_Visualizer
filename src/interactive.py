@@ -1,9 +1,7 @@
 #!/bin/env python3
 
 # Interactive Mandelbrot Set Escape Time Visualizer
-#
-# This program does not need to be refactored for the assignment.
-# It is provided to help you better understand the Mandelbrot fractal.
+
 import sys
 from tkinter import Tk, Canvas, mainloop
 from Config import FractalData
