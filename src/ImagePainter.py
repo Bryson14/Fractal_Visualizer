@@ -11,3 +11,4 @@ class ImagePainter:
 		self.canvas.pack()
 		self.window.bind("<Escape>", sys.exit)
 
+

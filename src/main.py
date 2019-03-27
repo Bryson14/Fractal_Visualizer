@@ -1,4 +1,4 @@
-# from julia import Julia
+from julia import Julia
 from mandelbrot import Mandelbrot
 from Config import FractalData
 import sys
@@ -33,8 +33,7 @@ def main():
 	if image in mandels:
 		Mandelbrot(mandels, image).draw_mandelbrot()
 	else:
-		# Julia(julias, image).draw_julia()
-		pass
+		Julia(julias, image).draw_julia()
 
 
 if __name__ == '__main__':
