@@ -19,7 +19,7 @@ class Mandelbrot:
 		self.miny = images[image]['centerY'] - (images[image]['axisLen'] / 2.0)
 		self.maxy = images[image]['centerY'] + (images[image]['axisLen'] / 2.0)
 		self.pixelsize = abs(self.maxx - self.minx) / self.len_x_axis
-		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis+, self.gradients[0])
+		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradients[0])
 
 	def iteration_exit_count(self, c):
 		"""Return the color of the current pixel within the Mandelbrot set"""
@@ -29,7 +29,7 @@ class Mandelbrot:
 			if abs(z) > 2:
 				return i  # The sequence is unbounded
 
-		return (self.gradients) - 1   # Indicate a bounded sequence
+		return self.gradients - 1   # Indicate a bounded sequence
 
 	def paint(self):
 		for row in range(self.len_x_axis, 0, -1):
