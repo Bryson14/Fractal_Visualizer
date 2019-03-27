@@ -5,8 +5,9 @@
 # This program does not need to be refactored for the assignment.
 # It is provided to help you better understand the Mandelbrot fractal.
 import sys
-from tkinter import Tk, Canvas, PhotoImage, mainloop
-from fractal_data import FractalData
+from tkinter import Tk, Canvas, mainloop
+from Config import FractalData
+from ImagePainter import ImagePainter
 
 
 class Interactive:
@@ -30,7 +31,6 @@ class Interactive:
 			'#003d88', '#003784', '#003181', '#002c7e', '#00277a', '#002277',
 			]
 		self.MAX_ITERATIONS = len(self.gradients)
-		self.z = 0
 		self.CELL_SIZE = 20
 		self.images = images
 		self.len_x_axis = self.len_y_axis = 640
@@ -39,6 +39,7 @@ class Interactive:
 		self.miny = self.images[image]['centerY'] - (self.images[image]['axisLen'] / 2.0)
 		self.maxy = self.images[image]['centerY'] + (self.images[image]['axisLen'] / 2.0)
 		self.pixelsize = abs(self.maxx - self.minx) / self.len_x_axis
+		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradients[-1])
 		self.window = Tk()
 		self.canvas = Canvas(self.window, width=self.len_x_axis, height=self.len_y_axis, bg=self.gradients[-1])
 
@@ -77,21 +78,13 @@ class Interactive:
 				y = self.miny + row * self.pixelsize
 				count = self.colorOfThePixel(complex(x, y))
 				color = self.gradients[count]
-				self.canvas.create_rectangle(col, self.len_x_axis-row, col+self.CELL_SIZE, self.len_y_axis-row+self.CELL_SIZE, fill=color)
+				self.image_painter.canvas.create_rectangle(col, self.len_x_axis-row, col+self.CELL_SIZE, self.len_y_axis-row+self.CELL_SIZE, fill=color)
 
 	def draw(self):
-		self.canvas.pack()
-
-		# Paint the cell under the mouse cursor upon ordinary left click
-		self.canvas.bind("<Button-1>", self.paintCell)
-
-		# Display the entire image on the screen upon right click or spacebar
-		self.canvas.bind("<Button-3>", self.paintEntireImage)
-		self.window.bind("<space>", self.paintEntireImage)
-
-		# Quit upon Esc
-		self.window.bind("<Escape>", sys.exit)
-
+		self.image_painter.canvas.pack()
+		self.image_painter.canvas.bind("<Button-1>", self.paintCell)
+		self.image_painter.canvas.bind("<Button-3>", self.paintEntireImage)
+		self.image_painter.window.bind("<space>", self.paintEntireImage)
 		mainloop()
 
 
@@ -100,7 +93,7 @@ def main():
 	images = mandels.get_mandelbrot_dic()
 
 	if len(sys.argv) < 2:
-		print("Usage: mandelbrot.py FRACTALNAME")
+		print("Usage: interactive.py FRACTALNAME")
 		print("Where FRACTALNAME is one of:")
 		for image in images:
 			print(f"\t{image}")

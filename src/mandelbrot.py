@@ -25,26 +25,23 @@ class Mandelbrot:
 			'#00649c', '#005d98', '#005695', '#004f92', '#00498e', '#00438b',
 			'#003d88', '#003784', '#003181', '#002c7e', '#00277a', '#002277',
 			]
-		self.z = 0
-		self.CELL_SIZE = 20
 		self.images = images
 		self.image = image
 		self.len_x_axis = self.len_y_axis = 640
-		self.minx = self.images[image]['centerX'] - (self.images[image]['axisLen'] / 2.0)
-		self.maxx = self.images[image]['centerX'] + (self.images[image]['axisLen'] / 2.0)
-		self.miny = self.images[image]['centerY'] - (self.images[image]['axisLen'] / 2.0)
-		self.maxy = self.images[image]['centerY'] + (self.images[image]['axisLen'] / 2.0)
+		self.minx = images[image]['centerX'] - (images[image]['axisLen'] / 2.0)
+		self.maxx = images[image]['centerX'] + (images[image]['axisLen'] / 2.0)
+		self.miny = images[image]['centerY'] - (images[image]['axisLen'] / 2.0)
+		self.maxy = images[image]['centerY'] + (images[image]['axisLen'] / 2.0)
 		self.pixelsize = abs(self.maxx - self.minx) / self.len_x_axis
 		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradients[0])
 
-
 	def colorOfThePixel(self, c):
 		"""Return the color of the current pixel within the Mandelbrot set"""
-		self.z = complex(0, 0)  #z0
+		z = complex(0, 0)  #z0
 		for i in range(len(self.gradients)):
-			self.z = self.z * self.z + c  # Get z1, z2, ...
-			if abs(self.z) > 2:
-				self.z = 2.0
+			z = z * z + c  # Get z1, z2, ...
+			if abs(z) > 2:
+				z = 2.0
 				return self.gradients[i]  # The sequence is unbounded
 
 		return self.gradients[len(self.gradients) - 1]   # Indicate a bounded sequence
