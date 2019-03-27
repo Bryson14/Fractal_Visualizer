@@ -27,7 +27,6 @@ class Mandelbrot:
 		for i in range(len(self.gradients)):
 			z = z * z + c  # Get z1, z2, ...
 			if abs(z) > 2:
-				z = 2.0
 				return self.gradients[i]  # The sequence is unbounded
 
 		return self.gradients[len(self.gradients) - 1]   # Indicate a bounded sequence

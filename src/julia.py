@@ -15,7 +15,7 @@ class Julia:
 		grad = Gradients()
 		self.gradients = grad.get_gradients()
 		self.len_x_axis = self.len_y_axis = 1024
-		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradients[0])
+		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradients[25])
 		self.creal = images[image]["creal"]
 		self.cimag = images[image]["cimag"]
 		self.iterations = images[image]["iterations"]
@@ -30,16 +30,16 @@ class Julia:
 		for i in range(self.iterations):
 			z = z * z + c  # Iteratively compute z1, z2, z3 ...
 			if abs(z) > 2:
-				return self.gradients[i]  # The sequence unbinds itself
-
-		return self.gradients[self.iterations]  # the sequence never unbinds itself
+				return i  # The sequence unbinds itself
+		return self.iterations  # the sequence never unbinds itself
 
 	def make_picture(self):
 		for row in range(self.len_y_axis, 0, -1):
 			for column in range(self.len_x_axis):
 				x = self.minx + column * self.pixel_size
 				y = self.miny + row * self.pixel_size
-				color = self.get_color_from_gradient(complex(x, y))
+				iteration_exit_count = self.get_color_from_gradient(complex(x, y))
+				color = self.gradients[iteration_exit_count]
 				self.image_painter.img.put(color, (column, self.len_y_axis - row))
 			self.image_painter.window.update()
 
