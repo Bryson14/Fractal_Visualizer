@@ -10,17 +10,15 @@ def main():
 	julias = fractals.get_julia_dic()
 
 	if len(sys.argv) < 2:
-		print("Usage: mandelbrot.py FRACTALNAME")
-		print("Where FRACTALNAME is one of:")
-		for name in mandels:
-			print(f"\t{name}")
-		print("Usage: julia.py FRACTALNAME")
+		print("Usage: main.py FRACTALNAME")
 		print("Where FRACTALNAME is one of:")
 		for name in julias:
 			print(f"\t{name}")
+		for name in mandels:
+			print(f"\t{name}")
 		sys.exit(1)
 
-	elif str(sys.argv[1]).lower() not in mandels or julias:
+	elif str(sys.argv[1]).lower() not in mandels and str(sys.argv[1]).lower() not in julias:
 		print(f"ERROR: {sys.argv[1]} is not a valid fractal")
 		print("Please choose one of the following:")
 		for name in julias:
@@ -36,6 +34,7 @@ def main():
 		Mandelbrot(mandels, image).draw_mandelbrot()
 	else:
 		Julia(julias, image).draw_julia()
+		pass
 
 
 if __name__ == '__main__':
