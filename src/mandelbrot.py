@@ -29,7 +29,7 @@ class Mandelbrot:
 			if abs(z) > 2:
 				return i  # The sequence is unbounded
 
-		return self.gradients - 1   # Indicate a bounded sequence
+		return len(self.gradients) - 1   # Indicate a bounded sequence
 
 	def paint(self):
 		for row in range(self.len_x_axis, 0, -1):
