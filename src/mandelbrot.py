@@ -5,9 +5,10 @@
 from tkinter import mainloop
 from ImagePainter import ImagePainter
 from Gradient import Gradients
+from fractal import Fractal
 
 
-class Mandelbrot:
+class Mandelbrot(Fractal):
 	def __init__(self, images, image):
 		grad = Gradients()
 		self.gradients = grad.get_gradients()

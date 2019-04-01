@@ -10,5 +10,3 @@ class ImagePainter:
 		self.canvas.create_image((window_width // 2, window_height // 2), image=self.img, state="normal")
 		self.canvas.pack()
 		self.window.bind("<Escape>", sys.exit)
-
-

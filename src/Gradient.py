@@ -1,4 +1,8 @@
-class Gradients:
+from abc import ABC
+import colour
+
+
+class Gradients(ABC):
 	def __init__(self):
 		self.gradients = [
 			'#ffe4b5', '#ffe5b2', '#ffe7ae', '#ffe9ab', '#ffeaa8', '#ffeda4',
@@ -21,3 +25,8 @@ class Gradients:
 
 	def get_gradients(self):
 		return self.gradients
+
+	# abstractmethod
+	def get_color(self, n: int) ->str:
+		pass
+

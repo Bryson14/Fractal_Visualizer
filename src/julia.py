@@ -5,9 +5,10 @@
 from tkinter import mainloop
 from ImagePainter import ImagePainter
 from Gradient import Gradients
+from fractal import Fractal
 
 
-class Julia:
+class Julia(Fractal):
 	def __init__(self, images, image):
 		self.image = image
 		grad = Gradients()
