@@ -1,4 +1,8 @@
 from abc import ABC
 
+
 class Fractal(ABC):
-	pass
+
+	# abstractmethod
+	def count(self, z: complex) ->int:
+		pass
