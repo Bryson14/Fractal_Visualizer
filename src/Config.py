@@ -4,7 +4,7 @@ import os
 class FractalData:
 	def __init__(self, data_dir='data'):
 		self.data_dir = data_dir
-		self.fractals = {'mandelbrot': {}, 'julia': {}, 'burningshipjulia': {}}
+		self.fractals = {}
 		self.os_walk()
 
 	def os_walk(self):
@@ -41,16 +41,17 @@ class FractalData:
 			elif line.startswith('iterations'):
 				iterations = int(line.split(" ")[-1].strip())
 
-		data = Data(pixels, centerX, centerY, axislength, iterations)
-		self.fractals[frac_type][name] = data.__dict__()
+		data = Data(frac_type, pixels, centerX, centerY, axislength, iterations, creal, cimag)
+		self.fractals[name] = data.__dict__()
 
 	def get_dic(self):
 		return self.fractals
 
 
 class Data:
-	def __init__(self, pixels, centerx, centery, axislength, iterations, creal=None, cimag=None):
+	def __init__(self, frac_type, pixels, centerx, centery, axislength, iterations, creal=None, cimag=None):
 		self.dic = {
+			'type':frac_type,
 			'centerX': centerx,
 			'centerY': centery,
 			'axisLength': axislength,
