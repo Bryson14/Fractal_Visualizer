@@ -1,9 +1,7 @@
-from abc import ABC
 import colour
 
-
-class Gradients(ABC):
-	def __init__(self):
+class Gradients(object):
+	def __init__(self, color):
 		self.gradients = [
 			'#ffe4b5', '#ffe5b2', '#ffe7ae', '#ffe9ab', '#ffeaa8', '#ffeda4',
 			'#ffefa1', '#fff29e', '#fff49a', '#fff797', '#fffb94', '#fffe90',
@@ -23,10 +21,13 @@ class Gradients(ABC):
 			'#003d88', '#003784', '#003181', '#002c7e', '#00277a', '#002277',
 		]
 
+	def __new__(cls, *args, **kwargs):
+		if cls is Gradients:
+			raise TypeError("\nBase class of Gradients cannot be instantiated!")
+		return object.__new__(cls)
+
 	def get_gradients(self):
 		return self.gradients
 
-	# abstractmethod
 	def get_color(self, n: int) ->str:
-		pass
-
+		return self.gradients[n]

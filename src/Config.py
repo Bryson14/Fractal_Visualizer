@@ -6,6 +6,7 @@ class FractalData:
 		self.data_dir = data_dir
 		self.mandelbrot_types = {}
 		self.julia_types = {}
+		self.burningship_types = {}
 		self.index_data()
 
 	def index_data(self):
@@ -22,6 +23,8 @@ class FractalData:
 				for line in open(fil):
 					if line.startswith('#'):
 						pass
+					elif line.startswith('type') and 'burning' in line:
+						self.index_julia(fil, True)
 					elif line.startswith('type') and 'julia' in line:
 						self.index_julia(fil)
 					elif line.startswith('type') and 'mandelbrot' in line:
@@ -46,7 +49,7 @@ class FractalData:
 		self.mandelbrot_types[name] = mandel.__dict__()
 
 
-	def index_julia(self, fil):
+	def index_julia(self, fil, burningship = False):
 		name = fil.split('\\')[-1][:-5]  # strips just name from full file name
 		creal = cimag = pixels = centerX = centerY = axislength = iterations = 0
 		for line in open(fil):
@@ -65,14 +68,21 @@ class FractalData:
 			elif line.startswith('iterations'):
 				iterations = int(line.split(" ")[-1].strip())
 
-		julia = Julia(creal, cimag, pixels, centerX, centerY, axislength, iterations)
-		self.julia_types[name] = julia.__dict__()
+		if not burningship:
+			julia = Julia(creal, cimag, pixels, centerX, centerY, axislength, iterations)
+			self.julia_types[name] = julia.__dict__()
+		else:
+			burning = BurningShip(creal, cimag, pixels, centerX, centerY, axislength, iterations)
+			self.burningship_types[name] = burning.__dict__()
 
 	def get_mandelbrot_dic(self):
 		return self.mandelbrot_types
 
 	def get_julia_dic(self):
 		return self.julia_types
+
+	def get_Burningship_dic(self):
+		return self.burningship_types
 
 
 class Mandelbrot:
@@ -95,6 +105,28 @@ class Mandelbrot:
 
 
 class Julia:
+	def __init__(self, creal, cimag, pixels, centerX, centerY, axislength, iterations):
+		self.creal = creal
+		self.cimag = cimag
+		self.pixels = pixels
+		self.centerX = centerX
+		self.centerY = centerY
+		self.axislength = axislength
+		self.iterations = iterations
+
+	def __dict__(self):
+		dic = {
+			'creal': self.creal,
+			'cimag': self.cimag,
+			'centerX': self.centerX,
+			'centerY': self.centerY,
+			'axisLength': self.axislength,
+			'iterations': self.iterations
+		}
+		return dic
+
+
+class BurningShip:
 	def __init__(self, creal, cimag, pixels, centerX, centerY, axislength, iterations):
 		self.creal = creal
 		self.cimag = cimag
