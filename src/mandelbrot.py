@@ -11,14 +11,13 @@ class Mandelbrot(Fractal):
 		Fractal.__init__(images, image, colors)
 		self.len_x_axis = self.len_y_axis = 640
 
-	# override
 	def count(self, c):
-		z = complex(0, 0)  #z0
+		z = complex(0, 0)
 		for i in range(len(self.gradients)):
-			z = z * z + c  # Get z1, z2, ...
+			z = z * z + c
 			if abs(z) > 2:
-				return i  # The sequence is unbounded
-		return len(self.gradients) - 1   # Indicate a bounded sequence
+				return i
+		return len(self.gradients) - 1
 
 	def paint(self):
 		for row in range(self.len_x_axis, 0, -1):

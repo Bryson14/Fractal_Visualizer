@@ -19,8 +19,8 @@ class Julia(Fractal):
 		for i in range(self.iterations):
 			z = z * z + c
 			if abs(z) > 2:
-				return i  # The sequence unbinds itself
-		return self.iterations  # the sequence never unbinds itself
+				return i
+		return self.iterations
 
 	def paint(self):
 		for row in range(self.len_y_axis, 0, -1):
@@ -34,7 +34,7 @@ class Julia(Fractal):
 	def draw(self):
 		self.paint()
 		self.image_painter.img.write(f"drawn_fractals\{self.image}.png")
-		print(f"Wrote image drawn fractals\{self.image}.png")
+		print(f"Wrote image:  drawn_fractals\{self.image}.png")
 
 		mainloop()
 

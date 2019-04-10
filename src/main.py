@@ -8,16 +8,18 @@ from GradientFactory import GradientFactory
 def main():
 	fractals = FractalData()
 	grads = GradientFactory()
-	mandels = fractals.get_mandelbrot_dic()
-	julias = fractals.get_julia_dic()
+	fracs = fractals.get_dic()
 	gradients = grads.get_gradients()
+
 
 	if len(sys.argv) < 2:
 		print("Usage: main.py [FRACTALNAME] [GRADIENTNAME]")
 		print("Where FRACTALNAME is one of:")
-		for name in julias:
+		for name in fracs['julia']:
 			print(f"\t{name}")
-		for name in mandels:
+		for name in fracs['mandels']:
+			print(f"\t{name}")
+		for name in fracs['burningshipjulia']:
 			print(f"\t{name}")
 		sys.exit(1)
 
