@@ -1,7 +1,5 @@
 #!/bin/env python3
 
-# Julia Set Visualizer
-
 from tkinter import mainloop
 from fractal import Fractal
 

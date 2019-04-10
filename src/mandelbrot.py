@@ -1,7 +1,5 @@
 #!/bin/env python3
 
-# Mandelbrot Set Visualizer
-
 from tkinter import mainloop
 from fractal import Fractal
 
