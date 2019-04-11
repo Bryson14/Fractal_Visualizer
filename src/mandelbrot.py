@@ -5,8 +5,8 @@ from fractal import Fractal
 
 
 class Mandelbrot(Fractal):
-	def __init__(self, images, image, colors):
-		Fractal.__init__(images, image, colors)
+	def __init__(self, image, colors):
+		Fractal.__init__(image, colors)
 		self.len_x_axis = self.len_y_axis = 640
 
 	def count(self, c):

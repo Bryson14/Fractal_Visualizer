@@ -2,17 +2,16 @@ from ImagePainter import ImagePainter
 
 
 class Fractal(object):
-	def __init__(self, images, image, colors):
+	def __init__(self, image, colors):
 		self.gradients = colors
-		self.images = images
 		self.image = image
 		self.len_x_axis = self.len_y_axis = 640
-		self.minx = images[image]['centerX'] - (images[image]['axisLen'] / 2.0)
-		self.maxx = images[image]['centerX'] + (images[image]['axisLen'] / 2.0)
-		self.miny = images[image]['centerY'] - (images[image]['axisLen'] / 2.0)
-		self.maxy = images[image]['centerY'] + (images[image]['axisLen'] / 2.0)
+		self.minx = image['centerX'] - (image['axisLen'] / 2.0)
+		self.maxx = image['centerX'] + (image['axisLen'] / 2.0)
+		self.miny = image['centerY'] - (image['axisLen'] / 2.0)
+		self.maxy = image['centerY'] + (image['axisLen'] / 2.0)
 		self.pixel_size = abs(self.maxx - self.minx) / self.len_x_axis
-		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradient.get_color(-1))
+		self.image_painter = ImagePainter(self.len_x_axis, self.len_y_axis, self.gradients.get_color(-1))
 
 	def __new__(cls, *args, **kwargs):
 		if cls is Fractal:

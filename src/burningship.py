@@ -5,17 +5,17 @@ from fractal import Fractal
 
 
 class Burningship(Fractal):
-	def __init__(self, images, image, colors):
-		Fractal.__init__(images, image, colors)
+	def __init__(self, image, colors=None):
+		Fractal.__init__(image, colors)
 		self.len_x_axis = self.len_y_axis = 620
-		self.creal = images[image]["creal"]
-		self.cimag = images[image]["cimag"]
-		self.iterations = images[image]["iterations"]
+		self.creal = image["creal"]
+		self.cimag = image["cimag"]
+		self.iterations = image["iterations"]
 
 	def count(self, z):
 		c = complex(self.creal, self.cimag)
 		for i in range(self.iterations):
-			z = z * z + c
+			z = abs(z) * abs(z) - c
 			if abs(z) > 2:
 				return i
 		return self.iterations

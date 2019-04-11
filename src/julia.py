@@ -5,12 +5,12 @@ from fractal import Fractal
 
 
 class Julia(Fractal):
-	def __init__(self, images, image, colors):
-		Fractal.__init__(images, image, colors)
+	def __init__(self, image, colors=None):
+		Fractal.__init__(image, colors)
 		self.len_x_axis = self.len_y_axis = 1024
-		self.creal = images[image]["creal"]
-		self.cimag = images[image]["cimag"]
-		self.iterations = images[image]["iterations"]
+		self.creal = image["creal"]
+		self.cimag = image["cimag"]
+		self.iterations = image["iterations"]
 
 	def count(self, z):
 		c = complex(self.creal, self.cimag)

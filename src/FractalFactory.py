@@ -1,22 +1,28 @@
 from Config import FractalData
+from mandelbrot import Mandelbrot
+from julia import Julia
+from phoenix import Phoenix
+from burningship import Burningship
 
 
 class FractalFactory:
-	def __new__(cls, *args, **kwargs):
-		if cls is FractalFactory:
-			raise TypeError("\nBase class of FractalFactory cannot be instantiated!")
-		return object.__new__(cls)
-
 	def __init__(self):
 		self.necessary_mandelbrot_data = {'pixels', 'iterations', 'centerx', 'centery', 'axislength'}
 		self.necessary_julia_data = {'pixels', 'iterations', 'centerx', 'centery', 'axislength', 'creal', 'cimag'}
 		self.necessary_burningship_data = set([])
 		self.necessary_phoenix_data = set([])
 
-	def makeFractal(self, file):
-		frac_data = FractalData().index_data(file)
-		self.verify_data(frac_data)
-		return frac_data
+	def makeFractal(self, gradients, file='spiral0.frac'):
+		frac_data = FractalData().get_one_frac(file)
+		# self.verify_data(frac_data)
+		if frac_data['type'] == 'mandelbrot':
+			return Mandelbrot(frac_data, gradients)
+		elif frac_data['type'] == 'julia':
+			return Julia(frac_data, gradients)
+		elif frac_data['type'] == 'burningship':
+			return Burningship(frac_data, gradients)
+		elif frac_data['type'] == 'phoenix':
+			return Phoenix(frac_data, gradients)
 
 	def verify_data(self, indexed_data):
 		if indexed_data['type'] == 'mandelbrot':
@@ -41,4 +47,4 @@ class FractalFactory:
 						f"{piece_o_data} data field not correctly filled for this {indexed_data['type']} fractal")
 		else:
 			raise NotImplemented(
-				f"data file not found in data directory")
+				f"name of fractal not found in data directory")
