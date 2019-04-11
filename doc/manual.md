@@ -2,8 +2,10 @@
 This is a visual fractal program that produces different types of fractals.
 
 To use:
-	1) Once in the Current Working Directory of the project, type $ src\main.py  into the command line to see all the available fractals the program can make.
-	2) To draw a specific fractal, type $ src\main.py FRACTALNAME
+	1) Once in the Current Working Directory of the project, type $ src\main.py  into the command line to draw the default fractal.
+	2) To draw a specific fractal, type $ src\main.py FRACTALNAME. This will also be drawn with a default color gradient scheme.
+	3) To specify a different color scheme, type $ src\main.py FRACTALNAME GRADIENTNAME
+	4) To reach out for help, type $ src\main.py help  to see a usage message
 
 You will notice that certain fractals will draw more slowly. This will happen because they are julia type fractals and will have higher resolution and detail.
 
