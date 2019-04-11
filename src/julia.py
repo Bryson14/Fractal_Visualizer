@@ -5,7 +5,7 @@ from fractal import Fractal
 
 
 class Julia(Fractal):
-	def __init__(self, image, colors=None):
+	def __init__(self, image, colors):
 		super().__init__(image, colors)
 		self.len_x_axis = self.len_y_axis = 1024
 		self.creal = image["creal"]
