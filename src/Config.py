@@ -77,5 +77,3 @@ class Data:
 
 	def __dict__(self):
 		return self.dic
-
-print(os.getcwd())
