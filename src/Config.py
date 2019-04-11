@@ -47,7 +47,7 @@ class FractalData:
 			print(f"File {fil} not found. Check file and directory location.")
 			sys.exit(1)
 
-		data = Data(frac_type, pixels, centerx, centery, axislength, iterations, creal, cimag)
+		data = Data(name, frac_type, pixels, centerx, centery, axislength, iterations, creal, cimag)
 		self.fractals[name] = data.__dict__()
 
 	def get_dic(self):
@@ -58,13 +58,13 @@ class FractalData:
 		if name.lower() in self.fractals:
 			return self.fractals[name.lower()]
 		else:
-			print("Incorrect fractal name given. Returning default fractal.")
-			return self.fractals[f'data\spiral0']
+			print("Incorrect fractal name given.")
 
 
 class Data:
-	def __init__(self, frac_type, pixels, centerx, centery, axislength, iterations, creal=None, cimag=None):
+	def __init__(self, name, frac_type, pixels, centerx, centery, axislength, iterations, creal=None, cimag=None):
 		self.dic = {
+			'name':name,
 			'type':frac_type,
 			'centerx': centerx,
 			'centery': centery,

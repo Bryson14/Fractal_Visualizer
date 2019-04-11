@@ -19,15 +19,15 @@ def main():
 		else:
 			print("\tGradientFactory: Creating default color gradient")
 			gradients = GradientFactory().makeGradient().get_gradients()
-			fractal = FractalFactory().makeFractal(gradients)
+			fractal = FractalFactory().makeFractal(gradients, sys.argv[1])
 			fractal.draw()
 
 	elif len(sys.argv) == 3:
 		if sys.argv[1] == 'help':
 			print(usage)
 		else:
-			gradients = GradientFactory().makeGradient().get_gradients()
-			fractal = FractalFactory().makeFractal(gradients)
+			gradients = GradientFactory(sys.argv[2]).makeGradient().get_gradients()
+			fractal = FractalFactory().makeFractal(gradients, sys.argv[1])
 			fractal.draw()
 	else:
 		print(usage)

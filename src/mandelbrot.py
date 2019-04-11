@@ -6,7 +6,7 @@ from fractal import Fractal
 
 class Mandelbrot(Fractal):
 	def __init__(self, image, colors):
-		Fractal.__init__(image, colors)
+		super().__init__(image, colors)
 		self.len_x_axis = self.len_y_axis = 640
 
 	def count(self, c):
@@ -28,6 +28,6 @@ class Mandelbrot(Fractal):
 
 	def draw(self):
 		self.paint()
-		self.image_painter.img.write(f"drawn_fractals\{self.image}.png")
-		print(f"Wrote image drawn fractals\{self.image}.png")
+		self.image_painter.img.write(f"drawn_fractals\{self.image['name']}.png")
+		print(f"Wrote image drawn fractals\{self.image['name']}.png")
 		mainloop()

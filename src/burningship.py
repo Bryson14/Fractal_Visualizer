@@ -6,7 +6,7 @@ from fractal import Fractal
 
 class Burningship(Fractal):
 	def __init__(self, image, colors=None):
-		Fractal.__init__(image, colors)
+		super().__init__(image, colors)
 		self.len_x_axis = self.len_y_axis = 620
 		self.creal = image["creal"]
 		self.cimag = image["cimag"]
@@ -31,8 +31,8 @@ class Burningship(Fractal):
 
 	def draw(self):
 		self.paint()
-		self.image_painter.img.write(f"drawn_fractals\{self.image}.png")
-		print(f"Wrote image:  drawn_fractals\{self.image}.png")
+		self.image_painter.img.write(f"drawn_fractals\{self.image['name']}.png")
+		print(f"Wrote image:  drawn_fractals\{self.image['name']}.png")
 
 		mainloop()
 
